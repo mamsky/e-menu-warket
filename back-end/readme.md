@@ -8,7 +8,7 @@ user
 item
 | id | name | images | price | category  
 | :- | :------- | :----- |:----- |:--------- |
-| `id` | `string` | `string`| `int`| `enum 'FOOD', 'DRINK', 'SNACK'`|
+| `autoincrement()` | `string` | `string`| `int`| `enum 'FOOD', 'DRINK', 'SNACK'`|
 
 ## Authors
 
