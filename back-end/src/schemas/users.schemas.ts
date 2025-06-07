@@ -5,3 +5,8 @@ export const UsersSchema = joi.object({
   name: joi.string(),
   password: joi.string(),
 });
+
+export const AuthSchema = joi.object({
+  email: joi.string().email().required(),
+  password: joi.string().required(),
+});
