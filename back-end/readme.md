@@ -3,7 +3,7 @@
 user
 | id | email | name |password |
 | :- | :---- | :--- |:------- |
-| `autoincrement()` | `string` `unique` | `string` | `string`|
+| `autoincrement()` | `string` `@unique` | `string` | `string`|
 
 item
 | id | name | images | price | category  
