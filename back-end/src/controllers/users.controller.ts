@@ -84,8 +84,7 @@ export const loginUsersController = async (
       jwt_key,
       { expiresIn: '1d' },
     );
-    Cookie.set('token', token);
-    res.status(200).json({ message: 'success' });
+    res.status(200).json({ message: 'success', token });
   } catch (error) {
     next(error);
   }

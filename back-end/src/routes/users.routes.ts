@@ -3,7 +3,7 @@ import {
   createUsersControllers,
   getAllUsersControllers,
   loginUsersController,
-} from '../controllers/users.controllers';
+} from '../controllers/users.controller';
 const router = express.Router();
 
 router.get('/', getAllUsersControllers);
