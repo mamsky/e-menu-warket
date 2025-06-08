@@ -19,7 +19,7 @@ const NewMenuDialog = () => {
     useInputForm<ItemsSchemasDTO>(ItemsSchemas);
 
   const onSubmit = (data: ItemsSchemasDTO) => {
-    console.log(data);
+    console.log(data.image[0]);
   };
   return (
     <Dialog>
