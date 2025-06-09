@@ -3,7 +3,6 @@ import Cookies from "js-cookie";
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_BE_URL,
-  withCredentials: true,
 });
 
 api.interceptors.request.use(

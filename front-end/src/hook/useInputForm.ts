@@ -6,11 +6,13 @@ export const useInputForm = <T extends FieldValues>(schemas: ZodType) => {
   const {
     register,
     handleSubmit,
+    watch,
+    reset,
     formState: { errors },
   } = useForm<T>({
     resolver: zodResolver(schemas),
     mode: "onChange",
   });
 
-  return { register, handleSubmit, errors };
+  return { register, handleSubmit, watch, reset, errors };
 };

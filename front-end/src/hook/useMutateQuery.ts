@@ -1,5 +1,9 @@
 import { api } from "@/lib/api";
-import { useMutation, type UseMutationResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  type UseMutationResult,
+} from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import Cookies from "js-cookie";
 import type { FieldValues } from "react-hook-form";
@@ -15,6 +19,7 @@ type UseMutateProps<T extends FieldValues> = {
   navigate?: string;
   method: HTTPMethod;
   isFormData?: boolean;
+  invalidate?: string;
   set?: "setToken" | "setUsers";
 };
 
@@ -25,9 +30,11 @@ export const useMutateQuery = <T extends FieldValues>({
   navigate,
   set,
   method,
+  invalidate,
   isFormData = false,
 }: UseMutateProps<T>): UseMutationResult<T, unknown, T> => {
   const nav = useNavigate();
+  const queryClient = useQueryClient();
   return useMutation<T, Error, T>({
     mutationKey: [key],
     mutationFn: async (data: T) => {
@@ -81,6 +88,9 @@ export const useMutateQuery = <T extends FieldValues>({
         Cookies.set("token", res.token);
       }
       toast.success(res.message ?? "Success");
+      if (invalidate) {
+        queryClient.invalidateQueries({ queryKey: [invalidate] });
+      }
       if (navigate) {
         nav(navigate);
       }
