@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { ItemsSchema } from '../schemas/items.schemas';
 import {
   createItemsService,
   deleteItemsService,
@@ -6,7 +7,8 @@ import {
   getItemsByIdService,
   updateItemsService,
 } from '../services/items.service';
-import { ItemsSchema } from '../schemas/items.schemas';
+import { storageClient } from '../config/supabaseStorage';
+import { getPath } from '../utils/getPath';
 
 export const getAllItemsControllers = async (
   req: Request,
@@ -44,8 +46,10 @@ export const createDataItemsControllers = async (
   try {
     const { id } = (req as any).user;
     const body = req.body;
+    const publicUrl = (req as any).publicUrl;
 
-    const validateBody = await ItemsSchema.validateAsync(body);
+    const dataBody = { images: publicUrl, ...body };
+    const validateBody = await ItemsSchema.validateAsync(dataBody);
 
     const data = await createItemsService(Number(id), validateBody);
 
@@ -63,7 +67,23 @@ export const updateDataItemsControllers = async (
   try {
     const { id } = req.params;
     const body = req.body;
-    const validateBody = await ItemsSchema.validateAsync(body);
+    let imageUrl;
+
+    const getItemById = await getItemsByIdService(Number(id));
+    if (!getItemById) {
+      res.status(404).json({ message: 'Items Not Found' });
+      return;
+    }
+
+    const pathUrl = getPath(getItemById?.images!);
+
+    if (req.file) {
+      await storageClient.from('warket-items').remove([pathUrl]);
+      imageUrl = (req as any).publicUrl;
+    }
+
+    const dataBody = { images: imageUrl, ...body };
+    const validateBody = await ItemsSchema.validateAsync(dataBody);
 
     const data = await updateItemsService(Number(id), validateBody);
 
@@ -80,6 +100,13 @@ export const deleteDataItemsController = async (
 ) => {
   try {
     const { id } = req.params;
+    const getItemsByid = await getItemsByIdService(Number(id));
+    if (!getItemsByid) {
+      res.status(404).json({ message: 'Items Not Found' });
+      return;
+    }
+    const pathUrl = getPath(getItemsByid?.images!);
+    await storageClient.from('warket-items').remove([pathUrl]);
 
     const data = await deleteItemsService(Number(id));
     res.status(200).json({ message: 'Delete Items success', data });

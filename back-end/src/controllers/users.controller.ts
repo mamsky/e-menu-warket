@@ -1,14 +1,13 @@
+import bcrypt from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
+import { AuthSchema, UsersSchema } from '../schemas/users.schemas';
 import {
   createUsersServices,
   getAllUsersServices,
   getUsersByEmailServices,
 } from '../services/users.service';
-import { AuthSchema, UsersSchema } from '../schemas/users.schemas';
-import bcrypt from 'bcrypt';
 import { UsersTypes } from '../types/users.types';
-import jwt from 'jsonwebtoken';
-import Cookie from 'js-cookie';
 
 export const getAllUsersControllers = async (
   req: Request,

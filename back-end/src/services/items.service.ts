@@ -2,7 +2,11 @@ import { prisma } from '../libs/prisma.libs';
 import { ItemsTypes } from '../types/items.types';
 
 export const getAllItemsService = async () => {
-  return await prisma.item.findMany();
+  return await prisma.item.findMany({
+    orderBy: {
+      id: 'asc',
+    },
+  });
 };
 
 export const getItemsByIdService = async (id: number) => {
