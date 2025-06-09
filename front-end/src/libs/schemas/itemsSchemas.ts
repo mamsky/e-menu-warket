@@ -8,3 +8,5 @@ export const ItemsSchemas = z.object({
 });
 
 export type ItemsSchemasDTO = z.infer<typeof ItemsSchemas>;
+
+export const deleteSchemas = z.object({});

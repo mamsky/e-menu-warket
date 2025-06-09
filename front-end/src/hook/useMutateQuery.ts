@@ -72,10 +72,8 @@ export const useMutateQuery = <T extends FieldValues>({
       let res;
 
       if (method === "delete") {
-        // delete tidak menerima body
         res = await api.delete(endpoint, { headers });
       } else {
-        // post, put, patch menerima body
         res = await api[method](endpoint, payload, {
           headers,
         });

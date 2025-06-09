@@ -10,6 +10,7 @@ import {
 import { useGetQuery } from "@/hook/useGetQuery";
 import type { ItemsTypes } from "@/types/itemsTypes";
 import EditMenuDialog from "./EditMenuDialog";
+import DeleteMenuDialog from "./deleteMenuDialog";
 
 const TableListMenu = () => {
   const { data } = useGetQuery<ItemsTypes[]>({
@@ -54,9 +55,7 @@ const TableListMenu = () => {
             <TableCell>{field.price}</TableCell>
             <TableCell className="flex gap-4 items-center">
               <EditMenuDialog data={field} />
-              <button className="border border-r-4 border-b-4 border-black p-2 rounded-sm bg-red-500 font-bold cursor-pointer hover:scale-105">
-                Delete
-              </button>
+              <DeleteMenuDialog data={field} />
             </TableCell>
           </TableRow>
         ))}
