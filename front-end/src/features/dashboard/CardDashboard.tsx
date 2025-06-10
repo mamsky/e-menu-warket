@@ -1,9 +1,10 @@
 type Props = {
   title: string;
-  data: string;
+  total?: string;
+  num?: number;
 };
 
-const CardDashboard = ({ title, data }: Props) => {
+const CardDashboard = ({ title, total, num }: Props) => {
   return (
     <div className="border rounded-sm border-r-8 border-b-6 w-full max-h-40 h-40 p-4 ">
       <div className="flex justify-between">
@@ -12,7 +13,7 @@ const CardDashboard = ({ title, data }: Props) => {
       </div>
       <hr />
       <div className="p-4">
-        <h1 className="font-semibold text-xl">{data}</h1>
+        <h1 className="font-semibold text-xl">{total ? total : num}</h1>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import {
   createUsersServices,
   getAllUsersServices,
   getUsersByEmailServices,
+  getUsersByIdServices,
 } from '../services/users.service';
 import { UsersTypes } from '../types/users.types';
 
@@ -84,6 +85,25 @@ export const loginUsersController = async (
       { expiresIn: '1d' },
     );
     res.status(200).json({ message: 'success', token });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const authCheck = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const payload = (req as any).user;
+    if (!payload.id) {
+      res.status(401).json({ message: 'Unauthorize' });
+      return;
+    }
+    const users = await getUsersByIdServices(Number(payload.id));
+
+    res.status(201).json({ message: 'success', data: users });
   } catch (error) {
     next(error);
   }

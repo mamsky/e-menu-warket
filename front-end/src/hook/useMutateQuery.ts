@@ -20,7 +20,7 @@ type UseMutateProps<T extends FieldValues> = {
   method: HTTPMethod;
   isFormData?: boolean;
   invalidate?: string;
-  set?: "setToken" | "setUsers";
+  set?: "setToken" | "setUsers" | "setAuth";
 };
 
 export const useMutateQuery = <T extends FieldValues>({
@@ -85,16 +85,20 @@ export const useMutateQuery = <T extends FieldValues>({
       if (set == "setToken") {
         Cookies.set("token", res.token);
       }
-      toast.success(res.message ?? "Success");
       if (invalidate) {
         queryClient.invalidateQueries({ queryKey: [invalidate] });
       }
       if (navigate) {
         nav(navigate);
       }
+      toast.success(res.message ?? "Success");
     },
     onError: (err) => {
       if (isAxiosError(err)) {
+        if (err.status == 401) {
+          nav("/login");
+        }
+
         toast.error(err?.response?.data?.message ?? "Something went wrong");
       } else {
         toast.error("Unknown error");

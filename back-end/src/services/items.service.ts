@@ -4,7 +4,7 @@ import { ItemsTypes } from '../types/items.types';
 export const getAllItemsService = async () => {
   return await prisma.item.findMany({
     orderBy: {
-      id: 'asc',
+      category: 'asc',
     },
   });
 };

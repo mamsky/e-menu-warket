@@ -9,7 +9,7 @@ import {
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { uploadImage } from '../middlewares/multer.middleware';
 const router = express.Router();
-router.get('/', authMiddleware, getAllItemsControllers);
+router.get('/', getAllItemsControllers);
 router.get('/:id', authMiddleware, getDataItemsByIdControllers);
 router.post('/', authMiddleware, uploadImage, createDataItemsControllers);
 router.put('/:id', authMiddleware, uploadImage, updateDataItemsControllers);
