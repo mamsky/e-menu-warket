@@ -1,4 +1,3 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,6 +10,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import Cookies from "js-cookie";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { pathname } = useLocation();

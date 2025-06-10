@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import CardMenu from "./CardMenu";
 import SkeletonSpinner from "@/components/ui/skeleton-spinner";
+import SidebarShow from "./sidebar-show";
 
 const OrderFeatures = () => {
   const { id } = useParams();
@@ -32,6 +33,7 @@ const OrderFeatures = () => {
             {fielBtn}
           </button>
         ))}
+        <SidebarShow />
       </div>
       <h1 className="my-4 text-center text-2xl font-bold">Table Order {id}</h1>
       <div className="mx-4 ">
