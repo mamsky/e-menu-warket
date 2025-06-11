@@ -1,6 +1,8 @@
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -26,11 +28,11 @@ const SidebarShow = () => {
         <SheetHeader>
           <SheetTitle className="flex gap-2 items-center text-2xl">
             <IoCartOutline size={40} />
-            Cart items
+            Cart items Warket
           </SheetTitle>
           {items.length == 0 && <p>Empty Cart</p>}
           {items.length > 0 && (
-            <ul>
+            <ul className="max-h-[70vh] overflow-y-auto">
               <h1 className="text-2xl font-bold">List Items</h1>
               {items.map((item, index) => (
                 <li key={index} className="mb-2">
@@ -57,6 +59,11 @@ const SidebarShow = () => {
             </ul>
           )}
         </SheetHeader>
+        <SheetFooter>
+          <Button className="border py-8 cursor-pointer font-bold text-2xl text-center">
+            Checkout
+          </Button>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

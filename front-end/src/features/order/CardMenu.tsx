@@ -25,12 +25,12 @@ const CardMenu = ({ data }: Props) => {
         alt="Sunset in the mountains"
       />
       <div className="p-2">
-        <div className="">Name: {data.name}</div>
-        <div className="">price: {data.price}</div>
+        <div className="font-bold">Name: {data.name}</div>
+        <div className="font-semibold">price: {data.price}</div>
       </div>
       <button
         onClick={() => cartItems(data.name)}
-        className="w-full md:p-2 bg-blue-500 hover:bg-blue-700 text-center font-bold text-2xl text-white cursor-pointer"
+        className="w-full md:p-2 border-b-6 border-r-8 border-black bg-blue-500 hover:bg-blue-700 text-center font-bold text-2xl text-white cursor-pointer"
       >
         Cart
       </button>
